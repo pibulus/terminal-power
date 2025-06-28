@@ -35,6 +35,11 @@ fi
 
 echo "📝 Transcribed: \"${TRANSCRIPTION}\""
 
+# Voice confirmation if available
+if [[ -f ~/Terminal_Power/scripts/voice-response.sh ]]; then
+    ~/Terminal_Power/scripts/voice-response.sh "I heard: ${TRANSCRIPTION}"
+fi
+
 # Clean up audio file
 rm -f ${AUDIO_FILE}
 

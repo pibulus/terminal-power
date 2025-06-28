@@ -5,11 +5,13 @@
 ## 🎯 Project Overview
 
 Terminal Power is an open-source package that turns any terminal into a cyberpunk AI command center featuring:
-- Voice commands via Whisper API transcription
-- 16 Model Context Protocol (MCP) servers for AI capabilities
-- Interactive control center with beautiful gum-based UI
-- GitHub code discovery engine
-- Cross-platform installation and setup
+- 🎙️ **Bidirectional Voice**: Commands IN via Whisper API, responses OUT via TTS
+- 🤖 **16 Model Context Protocol (MCP)** servers for AI capabilities
+- 📦 **Modular API Packs** - Creative, Deploy, and Fun extensions
+- 🎨 **Interactive Control Center** with beautiful gum-based UI
+- 🔍 **GitHub Code Discovery** engine
+- 🚀 **Deno Deploy Integration** for instant deployment
+- 🌍 **Cross-platform** installation and setup
 
 ## 🤖 Your Role & Capabilities
 
@@ -39,6 +41,30 @@ When working on Terminal Power, you have access to these MCPs:
 - `markitdown-simple` - Universal file converter
 - `free-will` - AI autonomy experiment
 
+## 📦 API Pack System
+
+Terminal Power now uses a modular pack system for optional functionality:
+
+### **🎨 Creative Pack** (11 APIs)
+- **Weather** (Open-Meteo) - Global weather data, no key needed
+- **Color Tools** (TheColorAPI) - Color schemes and identification  
+- **Palette Extract** (Microlink) - Extract colors from websites
+- **QR Generator** - Create QR codes instantly
+- **Faker Data** - Generate test data
+- **Quotes** - Design inspiration quotes
+- **URL Shortener** - Shorten long URLs
+- **Placeholder Images** - Beautiful placeholders
+
+### **🚀 Deploy Pack** (NEW)
+- **Deno Deploy Integration** - Deploy Fresh apps instantly
+- **Project Management** - Create, deploy, monitor projects
+- **Template System** - Fresh, vanilla, or API templates
+
+### **🗣️ Voice Response System** (NEW)
+- **Text-to-Speech** - Terminal talks back using system TTS or ElevenLabs
+- **Smart Responses** - Context-aware voice responses
+- **Multi-platform** - macOS say, Linux espeak, premium ElevenLabs
+
 ## 🎙️ Voice Command Patterns
 
 Users interact through voice commands that should be routed intelligently:
@@ -66,6 +92,18 @@ Users interact through voice commands that should be routed intelligently:
 - "Show me business emails"
 - "Schedule a meeting"
 - "Find emails about sponsorships"
+
+### **Creative Pack Commands** → Use API Pack scripts
+- "What's the weather in tokyo" → weather API + voice response
+- "Get colors from stripe.com" → Microlink palette extraction
+- "Generate a color scheme from pink" → TheColorAPI + voice response
+- "Make a QR code for my github" → QR generator
+- "Generate 5 fake companies" → Faker API
+
+### **Deploy Commands** → Use Deploy Pack
+- "Deploy this Fresh app" → Deno Deploy integration
+- "Create a new API project" → Template + deploy
+- "Show deployment logs" → Project monitoring
 
 ## 🔧 Technical Architecture
 
@@ -99,6 +137,13 @@ Terminal_Power/
 - `~/voice-to-claude.sh` - Voice transcription with Whisper API
 - `~/github-search.sh` - GitHub code discovery
 - `~/test-terminal-power.sh` - System diagnostics
+
+### **Pack Scripts** (Optional Extensions)
+- `~/weather-tools.sh` - Weather data and forecasts
+- `~/color-tools.sh` - Color schemes and palette extraction
+- `~/voice-response.sh` - Text-to-speech system
+- `~/deploy-tools.sh` - Deno Deploy integration
+- `~/porkbun-search.sh` - Domain availability checking
 
 ### **API Dependencies**
 - **OpenAI API** - Voice transcription (required)

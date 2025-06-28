@@ -35,6 +35,11 @@ generate_scheme() {
     fi
     
     echo "$response" | jq -r '.colors[] | "🎨 \(.hex.value) - \(.name.value)"'
+    
+    # Voice response
+    if [[ -f ~/Terminal_Power/scripts/voice-response.sh ]]; then
+        ~/Terminal_Power/scripts/voice-response.sh "Generated a beautiful ${mode} color scheme"
+    fi
 }
 
 # Identify a color
@@ -67,6 +72,11 @@ identify_color() {
     echo -e "🌈 Hex: #${hex}"
     echo -e "🔴 RGB: ${rgb}"
     echo -e "🎯 HSL: ${hsl}"
+    
+    # Voice response
+    if [[ -f ~/Terminal_Power/scripts/voice-response.sh ]]; then
+        ~/Terminal_Power/scripts/voice-response.sh "That color is called ${name}"
+    fi
 }
 
 # Extract palette from website (requires Microlink)
