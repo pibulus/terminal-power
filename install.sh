@@ -316,11 +316,12 @@ print_step "Installing scripts..."
 # Make scripts directory in home
 mkdir -p ~/bin
 
-# Copy voice and GitHub search scripts
+# Copy voice, GitHub search, and domain search scripts
 cp scripts/voice-to-claude.sh ~/
 cp scripts/github-search.sh ~/
+cp scripts/porkbun-search.sh ~/
 cp scripts/mcphelp ~/bin/
-chmod +x ~/voice-to-claude.sh ~/github-search.sh ~/bin/mcphelp
+chmod +x ~/voice-to-claude.sh ~/github-search.sh ~/porkbun-search.sh ~/bin/mcphelp
 
 print_success "Scripts installed and made executable"
 
@@ -403,11 +404,13 @@ verify_installation() {
     # Check core scripts
     [[ -f ~/voice-to-claude.sh ]] || issues+=("Voice script missing")
     [[ -f ~/github-search.sh ]] || issues+=("GitHub search script missing")
+    [[ -f ~/porkbun-search.sh ]] || issues+=("Domain search script missing")
     [[ -f ~/bin/mcphelp ]] || issues+=("MCP help script missing")
     
     # Check executability
     [[ -x ~/voice-to-claude.sh ]] || issues+=("Voice script not executable")
     [[ -x ~/github-search.sh ]] || issues+=("GitHub search script not executable")
+    [[ -x ~/porkbun-search.sh ]] || issues+=("Domain search script not executable")
     [[ -x ~/bin/mcphelp ]] || issues+=("MCP help script not executable")
     
     # Check aliases in shell config

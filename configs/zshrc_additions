@@ -7,6 +7,8 @@ alias voice5='~/voice-to-claude.sh 5'
 alias voice10='~/voice-to-claude.sh 10'
 alias ghsearch='~/github-search.sh'
 alias findcode='~/github-search.sh'
+alias domains='~/porkbun-search.sh'
+alias domainprice='~/porkbun-search.sh pricing'
 
 # MCP API Keys for Claude Code
 export SUPABASE_ACCESS_TOKEN="your_supabase_token_here"
@@ -29,8 +31,8 @@ export ELEVENLABS_API_KEY=""  # Add when you get it
 export REPLICATE_API_TOKEN=""  # Add when you get it
 
 # Development APIs  
-export PORKBUN_API_KEY=""  # Add when you get it
-export PORKBUN_SECRET_KEY=""  # Add when you get it
+export PORKBUN_API_KEY="pk1_4ee621999e08b950a35b1903331db2f38e600f1c3f13eb757f764439debad297"  # Domain search
+export PORKBUN_SECRET_KEY="sk1_7c88e60e642406860ef8ab41aff65e1ed08b0c6e11825728f9340181c7bcdcb3"  # Domain search
 export RAILWAY_TOKEN=""  # Add when you get it
 export STEAM_API_KEY=""  # Add when you get it
 

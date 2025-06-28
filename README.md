@@ -46,11 +46,13 @@ voice "create a new SaaS project"
 - **Intelligent routing** - AI picks the right tools
 - **Zero configuration** - works out of the box
 
-### **🔍 Instant Code Discovery**
+### **🔍 Instant Code & Domain Discovery**
 ```bash
 ghsearch "deno fresh auth" repositories
 findcode "supabase middleware" code
-# Find any code pattern in seconds
+domains example.com                  # Check domain availability
+domainprice                         # See domain pricing
+# Find any code pattern or domain in seconds
 ```
 
 ### **🎨 Creative Superpowers**
@@ -68,8 +70,9 @@ findcode "supabase middleware" code
 
 ```bash
 mcp          # Launch the beautiful control center
-mcpapi       # Set up APIs with guided wizard
-mcptest      # Test everything with one command
+voice        # Record and transcribe voice commands
+domains      # Search domains with Porkbun
+domainprice  # See domain pricing instantly
 ```
 
 ![MCP Control Center](https://via.placeholder.com/600x400/0a0a0a/00ff00?text=MCP+CONTROL+CENTER)
