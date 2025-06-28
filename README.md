@@ -23,7 +23,7 @@
 ## 🚀 **One-Command Magic Install**
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/pabloalvarado/terminal-power/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/pibulus/terminal-power/main/install.sh | bash
 ```
 
 **That's it!** ✨ Your terminal is now a cyberpunk AI command center.
@@ -80,7 +80,7 @@ mcptest      # Test everything with one command
 
 ```bash
 # 1. Install (one command)
-curl -sSL https://raw.githubusercontent.com/pabloalvarado/terminal-power/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/pibulus/terminal-power/main/install.sh | bash
 
 # 2. Set up your APIs (interactive wizard)
 mcp api
@@ -174,7 +174,7 @@ voice "share on SoundCloud with proper tags"
 
 ### **1. Install Terminal Power**
 ```bash
-curl -sSL https://raw.githubusercontent.com/pabloalvarado/terminal-power/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/pibulus/terminal-power/main/install.sh | bash
 ```
 
 ### **2. Launch Control Center**
@@ -310,10 +310,10 @@ MIT License - Use, modify, and distribute freely.
 
 **Transform your terminal into a cyberpunk AI command center!** 
 
-### 🚀 [Get Started Now](https://github.com/pabloalvarado/terminal-power) 🚀
+### 🚀 [Get Started Now](https://github.com/pibulus/terminal-power) 🚀
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/pabloalvarado/terminal-power/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/pibulus/terminal-power/main/install.sh | bash
 ```
 
 **Star ⭐ this repo if Terminal Power powers up your workflow!**
