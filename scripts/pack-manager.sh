@@ -68,6 +68,18 @@ install_creative_pack() {
     }
     
     echo ""
+    echo -e "${PURPLE}🗣️ Voice Response Options:${NC}"
+    echo "  🆓 System TTS (macOS say/Linux espeak) - FREE, works now!"
+    [[ -z "$OPENAI_API_KEY" ]] && {
+        echo "  🤖 OpenAI TTS - $0.015/1K chars (~85% cheaper than ElevenLabs)"
+        needs_keys+=("openai-tts")
+    }
+    [[ -z "$ELEVENLABS_API_KEY" ]] && {
+        echo "  ✨ ElevenLabs - Premium voices, 10 min free/month"
+        needs_keys+=("elevenlabs")
+    }
+    
+    echo ""
     
     if [[ ${#needs_keys[@]} -gt 0 ]]; then
         echo -e "${BLUE}🚀 Let's set up your API keys!${NC}"
@@ -144,6 +156,45 @@ setup_api_key() {
                 echo -e "${GREEN}✅ Microlink configured!${NC}"
             fi
             ;;
+        "openai-tts")
+            echo -e "${YELLOW}🤖 Setting up OpenAI TTS...${NC}"
+            echo "💡 You may already have OpenAI API key for voice commands!"
+            echo ""
+            if [[ -n "$OPENAI_API_KEY" ]]; then
+                echo -e "${GREEN}✅ OpenAI API key already configured!${NC}"
+                echo "OpenAI TTS will use your existing key for voice responses."
+                echo "Cost: ~$0.015 per 1,000 characters (very affordable!)"
+            else
+                echo "1. Opening OpenAI API Keys page..."
+                command -v open >/dev/null && open "https://platform.openai.com/account/api-keys" || echo "Visit: https://platform.openai.com/account/api-keys"
+                echo "2. Create new secret key"
+                echo "3. Cost: $0.015 per 1K characters (~85% cheaper than ElevenLabs)"
+                echo ""
+                read -p "Paste your OpenAI API Key: " key
+                if [[ -n "$key" ]]; then
+                    echo "export OPENAI_API_KEY=\"$key\"" >> ~/.zshrc
+                    export OPENAI_API_KEY="$key"
+                    echo -e "${GREEN}✅ OpenAI TTS configured!${NC}"
+                fi
+            fi
+            ;;
+        "elevenlabs")
+            echo -e "${YELLOW}✨ Setting up ElevenLabs Premium Voices...${NC}"
+            echo "1. Opening ElevenLabs signup..."
+            command -v open >/dev/null && open "https://elevenlabs.io/signup" || echo "Visit: https://elevenlabs.io/signup"
+            echo "2. Free plan: 10,000 credits/month (≈10 minutes)"
+            echo "3. Paid: $5/month for 30,000 credits (≈30 minutes)"
+            echo "4. Go to Profile → API Keys to get your key"
+            echo ""
+            echo -e "${BLUE}💡 Note: ElevenLabs has premium voice quality but OpenAI TTS is 85% cheaper${NC}"
+            echo ""
+            read -p "Paste your ElevenLabs API Key: " key
+            if [[ -n "$key" ]]; then
+                echo "export ELEVENLABS_API_KEY=\"$key\"" >> ~/.zshrc
+                export ELEVENLABS_API_KEY="$key"
+                echo -e "${GREEN}✅ ElevenLabs configured!${NC}"
+            fi
+            ;;
     esac
     echo ""
 }
@@ -169,6 +220,18 @@ install_pack_scripts() {
         echo "  ✅ color-tools.sh"
     fi
     
+    if [[ -f "$script_dir/voice-response.sh" ]]; then
+        cp "$script_dir/voice-response.sh" ~/voice-response.sh
+        chmod +x ~/voice-response.sh
+        echo "  ✅ voice-response.sh"
+    fi
+    
+    if [[ -f "$script_dir/deploy-tools.sh" ]]; then
+        cp "$script_dir/deploy-tools.sh" ~/deploy-tools.sh
+        chmod +x ~/deploy-tools.sh
+        echo "  ✅ deploy-tools.sh"
+    fi
+    
     # Add aliases to .zshrc if not already present
     if ! grep -q "# Terminal Power Creative Pack" ~/.zshrc; then
         echo "" >> ~/.zshrc
@@ -181,6 +244,9 @@ install_pack_scripts() {
         echo "alias fake='function _fake() { curl -s \"https://fakerapi.it/api/v1/\${1:-persons}?_quantity=\${2:-3}\" | jq .; }; _fake'" >> ~/.zshrc
         echo "alias quote='curl -s \"https://api.quotable.io/random\" | jq -r \".content + \\\" - \\\" + .author\"'" >> ~/.zshrc
         echo "alias shorten='function _shorten() { curl -s \"https://is.gd/create.php?format=simple&url=\$1\"; }; _shorten'" >> ~/.zshrc
+        echo "alias speak='~/voice-response.sh'" >> ~/.zshrc
+        echo "alias voice-config='~/voice-response.sh config'" >> ~/.zshrc
+        echo "alias deploy='~/deploy-tools.sh'" >> ~/.zshrc
         echo "  ✅ Added aliases to ~/.zshrc"
     else
         echo "  ℹ️  Aliases already in ~/.zshrc"
@@ -224,6 +290,31 @@ test_creative_pack() {
             echo -e "${GREEN}✅${NC}"
         else
             echo -e "${RED}❌${NC}"
+        fi
+    fi
+    
+    # Test voice systems
+    echo ""
+    echo -e "${BLUE}🗣️ Voice Response Systems:${NC}"
+    echo -n "System TTS: "
+    if command -v say >/dev/null 2>&1 || command -v espeak >/dev/null 2>&1; then
+        echo -e "${GREEN}✅${NC}"
+    else
+        echo -e "${RED}❌${NC}"
+    fi
+    
+    if [[ -n "$OPENAI_API_KEY" ]]; then
+        echo -n "OpenAI TTS: "
+        echo -e "${GREEN}✅ (Ready - uses existing OpenAI key)${NC}"
+    fi
+    
+    if [[ -n "$ELEVENLABS_API_KEY" ]]; then
+        echo -n "ElevenLabs: "
+        # Simple test - just check if key is formatted correctly
+        if [[ ${#ELEVENLABS_API_KEY} -gt 20 ]]; then
+            echo -e "${GREEN}✅${NC}"
+        else
+            echo -e "${RED}❌ (Invalid key format)${NC}"
         fi
     fi
 }

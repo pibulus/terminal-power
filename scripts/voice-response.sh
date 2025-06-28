@@ -38,14 +38,43 @@ detect_tts_engines() {
     echo "${engines[@]}"
 }
 
+# Detect available TTS engines
+detect_tts_engines() {
+    local engines=()
+    
+    # Check macOS say
+    if command -v say >/dev/null 2>&1; then
+        engines+=("say")
+    fi
+    
+    # Check Linux espeak
+    if command -v espeak >/dev/null 2>&1; then
+        engines+=("espeak")
+    fi
+    
+    # Check OpenAI TTS API
+    if [[ -n "$OPENAI_API_KEY" ]]; then
+        engines+=("openai")
+    fi
+    
+    # Check ElevenLabs API
+    if [[ -n "$ELEVENLABS_API_KEY" ]]; then
+        engines+=("elevenlabs")
+    fi
+    
+    echo "${engines[@]}"
+}
+
 # Choose best TTS engine
 choose_tts_engine() {
     local available=($(detect_tts_engines))
     
     case "$VOICE_ENGINE" in
         "auto")
-            # Prefer ElevenLabs > say > espeak
-            if [[ " ${available[*]} " =~ " elevenlabs " ]]; then
+            # Prefer OpenAI > ElevenLabs > say > espeak (OpenAI is best value)
+            if [[ " ${available[*]} " =~ " openai " ]]; then
+                echo "openai"
+            elif [[ " ${available[*]} " =~ " elevenlabs " ]]; then
                 echo "elevenlabs"
             elif [[ " ${available[*]} " =~ " say " ]]; then
                 echo "say"
@@ -82,6 +111,46 @@ speak_with_espeak() {
     
     echo -e "${BLUE}🗣️ Terminal Power says:${NC} $text"
     espeak -s "$rate" "$text" &
+}
+
+# Speak using OpenAI TTS API
+speak_with_openai() {
+    local text="$1"
+    local voice="${OPENAI_VOICE:-alloy}"  # alloy, echo, fable, onyx, nova, shimmer
+    
+    echo -e "${BLUE}🗣️ Terminal Power says:${NC} $text"
+    echo -e "${YELLOW}🤖 Using OpenAI TTS (affordable premium voice)...${NC}"
+    
+    # Generate audio with OpenAI TTS
+    curl -s -X POST "https://api.openai.com/v1/audio/speech" \
+        -H "Authorization: Bearer $OPENAI_API_KEY" \
+        -H "Content-Type: application/json" \
+        -d "{
+            \"model\": \"tts-1\",
+            \"input\": \"$text\",
+            \"voice\": \"$voice\"
+        }" \
+        --output /tmp/terminal_power_openai_speech.mp3
+    
+    # Play the audio
+    if [[ -f /tmp/terminal_power_openai_speech.mp3 ]]; then
+        if command -v afplay >/dev/null 2>&1; then
+            afplay /tmp/terminal_power_openai_speech.mp3 &
+        elif command -v mpg123 >/dev/null 2>&1; then
+            mpg123 /tmp/terminal_power_openai_speech.mp3 &
+        elif command -v vlc >/dev/null 2>&1; then
+            vlc --intf dummy /tmp/terminal_power_openai_speech.mp3 &
+        else
+            echo -e "${RED}❌ No audio player found for OpenAI audio${NC}"
+        fi
+        
+        # Cleanup after playing
+        sleep 5 && rm -f /tmp/terminal_power_openai_speech.mp3 &
+    else
+        echo -e "${RED}❌ Failed to generate OpenAI audio${NC}"
+        # Fallback to system TTS
+        speak_with_say "$text"
+    fi
 }
 
 # Speak using ElevenLabs API
@@ -146,6 +215,9 @@ speak() {
     local engine=$(choose_tts_engine)
     
     case "$engine" in
+        "openai")
+            speak_with_openai "$text"
+            ;;
         "say")
             speak_with_say "$text"
             ;;
@@ -234,6 +306,13 @@ configure_voice() {
                 speak "Voice engine changed to $engine"
             else
                 echo "Available engines: $(detect_tts_engines)"
+                echo ""
+                echo "Engine options:"
+                echo "  openai      - Premium quality, \$0.015/1K chars (85% cheaper than ElevenLabs)"
+                echo "  elevenlabs  - Highest quality, \$0.08/minute, voice cloning"
+                echo "  say         - macOS system voice (free)"
+                echo "  espeak      - Linux system voice (free)"
+                echo "  auto        - Automatically choose best available"
             fi
             ;;
         "voice")
