@@ -40,33 +40,40 @@ check_domain() {
         return 1
     fi
     
-    # Parse response using jq
-    local status=$(echo "$response" | jq -r '.status // empty')
-    local message=$(echo "$response" | jq -r '.message // empty')
+    # Parse response
+    local status=$(echo "$response" | jq -r '.status // "ERROR"')
+    local available=$(echo "$response" | jq -r '.response.avail // "no"')
+    local price=$(echo "$response" | jq -r '.response.price // ""')
+    local regular_price=$(echo "$response" | jq -r '.response.regularPrice // ""')
+    local renewal_price=$(echo "$response" | jq -r '.response.additional.renewal.price // ""')
+    local promo=$(echo "$response" | jq -r '.response.firstYearPromo // "no"')
+    local message=$(echo "$response" | jq -r '.message // ""')
     
     if [[ "$status" == "SUCCESS" ]]; then
-        local available=$(echo "$response" | jq -r '.available // empty')
-        local registration_price=$(echo "$response" | jq -r '.price // empty')
-        local promo_price=$(echo "$response" | jq -r '.promo // empty')
-        
-        if [[ "$available" == "true" ]]; then
+        if [[ "$available" == "yes" ]]; then
             echo -e "${GREEN}✅ $domain is AVAILABLE!${NC}"
             echo ""
-            [[ "$registration_price" != "null" && "$registration_price" != "empty" ]] && \
-                echo -e "💰 Registration: ${GREEN}\$$registration_price${NC}"
-            [[ "$promo_price" != "null" && "$promo_price" != "empty" ]] && \
-                echo -e "🎉 Promo price: ${YELLOW}\$$promo_price${NC}"
+            [[ -n "$price" && "$price" != "null" ]] && \
+                echo -e "💰 Registration: ${GREEN}\$$price${NC}"
+            [[ -n "$regular_price" && "$regular_price" != "null" && "$regular_price" != "$price" ]] && \
+                echo -e "💰 Regular price: \$$regular_price"
+            [[ -n "$renewal_price" && "$renewal_price" != "null" ]] && \
+                echo -e "🔄 Renewal: \$$renewal_price/year"
+            [[ "$promo" == "yes" ]] && \
+                echo -e "🎉 First year promo price!"
         else
             echo -e "${RED}❌ $domain is NOT available${NC}"
         fi
     else
         echo -e "${RED}❌ Error: $message${NC}"
         
-        # Show raw response for debugging
-        if command -v jq >/dev/null 2>&1; then
+        # Show raw response for debugging if it's a rate limit
+        if [[ "$message" == *"checks within"* ]]; then
+            echo -e "${YELLOW}⏱️  Rate limited - wait 10 seconds between checks${NC}"
+        else
             echo ""
             echo -e "${YELLOW}Debug response:${NC}"
-            echo "$response" | jq .
+            echo "$response" | jq . 2>/dev/null || echo "$response"
         fi
     fi
 }
