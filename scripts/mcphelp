@@ -28,6 +28,73 @@ NC='\033[0m' # No Color
 
 # Track if user is new to MCP help
 FIRST_RUN_FILE="$HOME/.mcphelp_welcomed"
+CONFIG_DIR="$HOME/.terminal-power"
+STATUS_FILE="$CONFIG_DIR/status.json"
+
+# Ensure config directory exists
+mkdir -p "$CONFIG_DIR"
+
+# Smart setup detection
+detect_setup_status() {
+    local setup_score=0
+    local max_score=10
+    
+    # Check core components (2 points each)
+    [[ -f ~/voice-to-claude.sh ]] && ((setup_score += 2))
+    [[ -f ~/github-search.sh ]] && ((setup_score += 2))
+    [[ -x ~/bin/mcphelp ]] && ((setup_score += 1))
+    
+    # Check API keys (1 point each)
+    [[ -n "$OPENAI_API_KEY" ]] && ((setup_score += 1))
+    [[ -n "$GITHUB_TOKEN" ]] && ((setup_score += 1))
+    [[ -n "$SUPABASE_ACCESS_TOKEN" ]] && ((setup_score += 1))
+    [[ -n "$GOOGLE_API_KEY" ]] && ((setup_score += 1))
+    
+    # Check Claude Code (1 point)
+    command -v claude >/dev/null 2>&1 && ((setup_score += 1))
+    
+    # Calculate setup percentage
+    SETUP_PERCENTAGE=$((setup_score * 100 / max_score))
+    
+    # Determine setup status
+    if [[ $setup_score -ge 8 ]]; then
+        SETUP_STATUS="complete"
+    elif [[ $setup_score -ge 5 ]]; then
+        SETUP_STATUS="partial"
+    else
+        SETUP_STATUS="needs_setup"
+    fi
+}
+
+# Auto-fix common issues
+auto_fix_issues() {
+    local fixes_applied=()
+    
+    # Fix executable permissions
+    if [[ -f ~/voice-to-claude.sh && ! -x ~/voice-to-claude.sh ]]; then
+        chmod +x ~/voice-to-claude.sh && fixes_applied+=("Made voice script executable")
+    fi
+    
+    if [[ -f ~/github-search.sh && ! -x ~/github-search.sh ]]; then
+        chmod +x ~/github-search.sh && fixes_applied+=("Made GitHub search script executable")
+    fi
+    
+    if [[ -f ~/bin/mcphelp && ! -x ~/bin/mcphelp ]]; then
+        chmod +x ~/bin/mcphelp && fixes_applied+=("Made MCP help script executable")
+    fi
+    
+    # Create bin directory if missing
+    if [[ ! -d ~/bin ]]; then
+        mkdir -p ~/bin && fixes_applied+=("Created ~/bin directory")
+    fi
+    
+    # Report fixes
+    if [[ ${#fixes_applied[@]} -gt 0 ]]; then
+        echo -e "${GREEN}🔧 Auto-fixed issues:${NC}"
+        printf '  ✅ %s\n' "${fixes_applied[@]}"
+        echo ""
+    fi
+}
 
 # Fallback menu for non-interactive environments
 show_fallback_menu() {
@@ -50,8 +117,12 @@ show_fallback_menu() {
     echo "  3. Ensure TTY is available"
 }
 
-# Welcome screen for first run
+# Enhanced welcome screen with smart onboarding
 show_welcome() {
+    # Run setup detection and auto-fixes
+    detect_setup_status
+    auto_fix_issues
+    
     if [ ! -f "$FIRST_RUN_FILE" ]; then
         if ! check_interactive; then
             show_fallback_menu
@@ -61,34 +132,143 @@ show_welcome() {
         clear
         echo -e "${CYAN}"
         if command -v figlet >/dev/null && command -v lolcat >/dev/null; then
-            figlet "MCP Control" | lolcat
+            figlet "Terminal Power" | lolcat
         else
-            echo "🤖 MCP CYBERPUNK TERMINAL CONTROL 🤖"
+            echo "🤖 TERMINAL POWER - AI COMMAND CENTER 🤖"
         fi
         echo -e "${NC}"
         
-        gum style \
-            --border double \
-            --border-foreground 212 \
-            --padding "1 2" \
-            --margin "1" \
-            --align center \
-            "🤖 WELCOME TO YOUR AI TERMINAL CONTROL CENTER! 🤖
+        # Show personalized welcome based on setup status
+        case "$SETUP_STATUS" in
+            "complete")
+                gum style \
+                    --border double \
+                    --border-foreground 87 \
+                    --padding "1 2" \
+                    --margin "1" \
+                    --align center \
+                    "🎉 WELCOME BACK, CYBERPUNK WIZARD! 🎉
 
-This is your command center for managing:
-• 16 Model Context Protocol (MCP) servers
-• API keys and integrations
-• Voice commands with Whisper API
-• GitHub code discovery engine
-• Creative AI workflows
+Setup Status: ${SETUP_PERCENTAGE}% Complete ✅
 
-Ready to become a cyberpunk AI wizard?"
+Your AI terminal is ready to rock:
+• Voice commands are configured
+• MCPs are loaded and ready
+• APIs are connected
+• All systems operational
+
+Ready to create some magic?"
+                ;;
+            "partial")
+                gum style \
+                    --border double \
+                    --border-foreground 214 \
+                    --padding "1 2" \
+                    --margin "1" \
+                    --align center \
+                    "🚀 WELCOME TO TERMINAL POWER! 🚀
+
+Setup Status: ${SETUP_PERCENTAGE}% Complete ⚠️
+
+You're halfway to AI mastery!
+We detected some missing components.
+Let's get you fully powered up.
+
+Ready to complete the setup?"
+                ;;
+            "needs_setup")
+                gum style \
+                    --border double \
+                    --border-foreground 208 \
+                    --padding "1 2" \
+                    --margin "1" \
+                    --align center \
+                    "🎯 WELCOME TO TERMINAL POWER! 🎯
+
+Setup Status: ${SETUP_PERCENTAGE}% Complete 🔧
+
+Looks like you're just getting started!
+No worries - I'll guide you through everything.
+In 5 minutes you'll have AI superpowers.
+
+Ready to transform your terminal?"
+                ;;
+        esac
         
         echo ""
-        if gum confirm "Take the quick tour?"; then
-            show_quick_tour
+        if [[ "$SETUP_STATUS" == "complete" ]]; then
+            if confirm "Show me what's possible?"; then
+                show_quick_tour
+            fi
+        else
+            if confirm "Let's complete the setup?"; then
+                show_guided_setup
+            else
+                if confirm "Take the tour first?"; then
+                    show_quick_tour
+                fi
+            fi
         fi
         touch "$FIRST_RUN_FILE"
+    fi
+}
+
+# Guided setup for incomplete installations
+show_guided_setup() {
+    clear
+    gum style \
+        --border rounded \
+        --border-foreground 99 \
+        --padding "1 2" \
+        "🛠️ GUIDED SETUP - LET'S GET YOU POWERED UP!
+
+I'll check what's missing and help you fix it.
+This will take just a few minutes.
+
+Don't worry - I'll explain everything as we go!"
+    
+    echo ""
+    confirm "Ready to start?" || return
+    
+    # Guide through each missing component
+    if [[ ! -f ~/voice-to-claude.sh ]]; then
+        show_voice_setup_guide
+    fi
+    
+    if [[ -z "$OPENAI_API_KEY" ]]; then
+        show_api_setup_guide
+    fi
+    
+    if ! command -v claude >/dev/null 2>&1; then
+        show_claude_setup_guide
+    fi
+    
+    # Recheck status
+    detect_setup_status
+    
+    if [[ "$SETUP_STATUS" == "complete" ]]; then
+        gum style \
+            --border double \
+            --border-foreground 87 \
+            --padding "1 2" \
+            --align center \
+            "🎉 SETUP COMPLETE! WELCOME TO THE FUTURE! 🎉
+
+Your terminal is now a cyberpunk AI command center!
+Everything is configured and ready to use.
+
+Time to create some magic! ✨"
+    else
+        gum style \
+            --border rounded \
+            --border-foreground 214 \
+            --padding "1 2" \
+            "🚀 GREAT PROGRESS! ${SETUP_PERCENTAGE}% COMPLETE
+
+You're almost there! A few more steps and 
+you'll have full AI superpowers.
+
+Use 'mcp test' to see what's still needed."
     fi
 }
 
