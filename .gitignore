@@ -1,0 +1,71 @@
+# Terminal Power - Git Ignore
+
+# Logs and debug files
+*.log
+.terminal-power-install.log
+install.log
+debug.log
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# API keys and secrets (safety net)
+*api*key*
+*secret*
+*token*
+*password*
+credentials.json
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+.temp/
+tmp/
+
+# Cache directories
+.cache/
+node_modules/
+__pycache__/
+*.pyc
+
+# User-specific files
+.mcphelp_welcomed
+.cheat_welcomed
+user_settings.json
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# System logs
+system.log
+error.log
+
+# Installation artifacts
+install_output.txt
+setup.log
+
+# Personal notes and todos
+PERSONAL_NOTES.md
+TODO_PRIVATE.md
+notes.txt

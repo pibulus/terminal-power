@@ -1,0 +1,38 @@
+# Terminal Power Configuration
+# Add this to your ~/.zshrc file
+
+# Voice & AI shortcuts
+alias voice='~/voice-to-claude.sh'
+alias voice5='~/voice-to-claude.sh 5'
+alias voice10='~/voice-to-claude.sh 10'
+alias ghsearch='~/github-search.sh'
+alias findcode='~/github-search.sh'
+
+# MCP API Keys for Claude Code
+export SUPABASE_ACCESS_TOKEN="your_supabase_token_here"
+export OPENAI_API_KEY="your_openai_key_here"
+export GOOGLE_API_KEY="your_google_key_here"
+export GITHUB_TOKEN="your_github_token_here"
+
+# Additional MCP environment variables
+export YOUTUBE_API_KEY="$GOOGLE_API_KEY"
+export GOOGLE_CALENDAR_API_KEY="$GOOGLE_API_KEY"
+
+# Gmail OAuth2 setup
+export GMAIL_CREDENTIALS="$HOME/.claude/oauth/google_credentials.json"
+export GOOGLE_OAUTH_CLIENT_ID="your_oauth_client_id"
+export GOOGLE_OAUTH_CLIENT_SECRET="your_oauth_client_secret"
+
+# Voice & Creative APIs
+export WHISPER_API_KEY="$OPENAI_API_KEY"  # Whisper uses same OpenAI key
+export ELEVENLABS_API_KEY=""  # Add when you get it
+export REPLICATE_API_TOKEN=""  # Add when you get it
+
+# Development APIs  
+export PORKBUN_API_KEY=""  # Add when you get it
+export PORKBUN_SECRET_KEY=""  # Add when you get it
+export RAILWAY_TOKEN=""  # Add when you get it
+export STEAM_API_KEY=""  # Add when you get it
+
+# GitHub CLI setup
+export GH_TOKEN="$GITHUB_TOKEN"

@@ -1,0 +1,33 @@
+# Claude MCP Configuration Commands
+# Run these commands to set up your Model Context Protocol servers
+
+# BASIC MCPs (Working and tested)
+claude mcp add markitdown-simple markitdown
+claude mcp add filesystem npx @modelcontextprotocol/server-filesystem
+claude mcp add sequential-thinking mcp-sequentialthinking-tools
+claude mcp add macos-automator npx @steipete/macos-automator-mcp
+claude mcp add wcgw wcgw_mcp
+claude mcp add free-will free-will-mcp
+
+# CREATIVE & AI MCPs (Require API keys)
+claude mcp add outsource npx @anthropic-ai/mcp-outsource
+claude mcp add huggingface npx huggingface-mcp-server
+claude mcp add ableton-live npx @ableton/mcp-live
+
+# DATA & WEB MCPs (Require configuration)
+claude mcp add supabase npx @supabase/mcp-server
+claude mcp add gmail npx gmail-mcp-server
+claude mcp add calendar npx google-calendar-mcp
+claude mcp add youtube-watchlater npx youtube-mcp-server
+claude mcp add webscraper npx web-scraper-mcp
+
+# INTEGRATION MCPs
+claude mcp add openapi npx openapi-mcp-server
+claude mcp add terminal-control npx terminal-control-mcp
+
+# VERIFY INSTALLATION
+# Run this command to see all configured MCPs:
+# claude mcp list
+
+# RESTART CLAUDE CODE
+# After adding MCPs, restart Claude Code to activate them
