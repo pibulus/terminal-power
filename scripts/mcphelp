@@ -363,6 +363,7 @@ show_main_menu() {
     CHOICE=$(gum choose \
         "🚀 Quick Start Guide" \
         "🔧 MCP Management (Add/Remove/List)" \
+        "🎨 API Packs (Creative/Dev/Fun Extensions)" \
         "🔑 API Key Setup & Management" \
         "🧪 Test Your Setup" \
         "🎙️ Voice Commands Guide" \
@@ -380,6 +381,9 @@ show_main_menu() {
             ;;
         "🔧 MCP Management (Add/Remove/List)")
             show_mcp_management
+            ;;
+        "🎨 API Packs (Creative/Dev/Fun Extensions)")
+            show_pack_management
             ;;
         "🔑 API Key Setup & Management")
             show_api_setup
@@ -694,6 +698,102 @@ show_mcp_status() {
             --padding "0 1" \
             "❌ Claude Code not found - install from https://docs.anthropic.com/claude-code"
     fi
+}
+
+# Pack Management
+show_pack_management() {
+    clear
+    echo -e "${CYAN}"
+    if command -v figlet >/dev/null; then
+        echo "API Packs" | figlet -f small | lolcat
+    else
+        echo "🎨 API PACK MANAGEMENT"
+    fi
+    echo -e "${NC}"
+    
+    # Use the pack manager script
+    ~/Terminal_Power/scripts/pack-manager.sh packs
+    
+    echo ""
+    PACK_CHOICE=$(gum choose \
+        "🎨 Install Creative Pack (Photos/Colors/Weather)" \
+        "📊 Show Pack Status" \
+        "🧪 Test Installed Packs" \
+        "📚 Learn About Packs" \
+        "🔙 Back to Main Menu")
+    
+    case "$PACK_CHOICE" in
+        "🎨 Install Creative Pack (Photos/Colors/Weather)")
+            echo ""
+            gum style \
+                --border rounded \
+                --border-foreground 99 \
+                --padding "1 2" \
+                "🎨 CREATIVE PACK INSTALLATION
+                
+This pack adds visual and design APIs to Terminal Power:
+📸 Unsplash photos, 🌈 color tools, 🌤️ weather
+📱 QR codes, 🎭 fake data, 💬 quotes
+
+Some APIs need free keys (we'll help you get them)."
+            
+            echo ""
+            if confirm "Install Creative Pack?"; then
+                ~/Terminal_Power/scripts/pack-manager.sh install creative
+                echo ""
+                confirm "Press Enter to continue..."
+            fi
+            show_pack_management
+            ;;
+        "📊 Show Pack Status")
+            ~/Terminal_Power/scripts/pack-manager.sh status
+            echo ""
+            confirm "Press Enter to continue..."
+            show_pack_management
+            ;;
+        "🧪 Test Installed Packs")
+            ~/Terminal_Power/scripts/pack-manager.sh test creative
+            echo ""
+            confirm "Press Enter to continue..."
+            show_pack_management
+            ;;
+        "📚 Learn About Packs")
+            clear
+            gum style \
+                --border double \
+                --border-foreground 87 \
+                --padding "1 2" \
+                "🎨 ABOUT API PACKS
+
+Terminal Power uses a modular system:
+
+🏗️ CORE: Voice, GitHub, Domains, MCPs (16 AI tools)
+📦 PACKS: Optional API extensions you can add
+
+🎨 CREATIVE PACK:
+  - Unsplash photos for your apps
+  - Color palette extraction from websites  
+  - Weather data from anywhere
+  - QR code generation
+  - Fake test data generation
+  - Design quotes and inspiration
+
+🚀 WHY PACKS?
+  - Keep Terminal Power lightweight
+  - Add only what you need
+  - Easy setup with guided wizards
+  - No API key required for core features
+
+Each pack is optional and adds new voice commands!"
+            
+            echo ""
+            confirm "Press Enter to continue..."
+            show_pack_management
+            ;;
+        "🔙 Back to Main Menu")
+            return
+            ;;
+    esac
 }
 
 # Test setup
