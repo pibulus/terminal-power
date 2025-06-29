@@ -10,12 +10,43 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # API credentials from environment
-PORKBUN_API_KEY="${PORKBUN_API_KEY:-pk1_4ee621999e08b950a35b1903331db2f38e600f1c3f13eb757f764439debad297}"
-PORKBUN_SECRET_KEY="${PORKBUN_SECRET_KEY:-sk1_7c88e60e642406860ef8ab41aff65e1ed08b0c6e11825728f9340181c7bcdcb3}"
+PORKBUN_API_KEY="${PORKBUN_API_KEY:-}"
+PORKBUN_SECRET_KEY="${PORKBUN_SECRET_KEY:-}"
+
+# Setup guide for users
+show_setup_guide() {
+    echo -e "${BLUE}🏷️ Porkbun Domain Search Setup${NC}"
+    echo ""
+    echo -e "${YELLOW}💡 You need free Porkbun API keys to search domains${NC}"
+    echo ""
+    echo "1. Sign up at: https://porkbun.com"
+    echo "2. Go to API section in your account"
+    echo "3. Generate API keys (free)"
+    echo "4. Add to your ~/.zshrc:"
+    echo ""
+    echo -e "${GREEN}export PORKBUN_API_KEY=\"your_api_key_here\"${NC}"
+    echo -e "${GREEN}export PORKBUN_SECRET_KEY=\"your_secret_key_here\"${NC}"
+    echo ""
+    echo "5. Restart terminal or run: source ~/.zshrc"
+    echo ""
+    echo -e "${BLUE}Then run: $0 example.com${NC}"
+}
+
+# Check if API keys are configured
+check_api_setup() {
+    if [[ -z "$PORKBUN_API_KEY" || -z "$PORKBUN_SECRET_KEY" ]]; then
+        show_setup_guide
+        return 1
+    fi
+    return 0
+}
 
 # Function to check domain
 check_domain() {
     local domain="$1"
+    
+    # Check API setup first
+    check_api_setup || return 1
     
     if [[ -z "$domain" ]]; then
         echo -e "${RED}❌ Please provide a domain to check${NC}"
@@ -83,6 +114,9 @@ check_multiple_domains() {
     local base_name="$1"
     local extensions=("com" "org" "net" "io" "dev" "app" "ai" "tech")
     
+    # Check API setup first
+    check_api_setup || return 1
+    
     echo -e "${BLUE}🔍 Bulk checking: ${YELLOW}$base_name${NC}"
     echo ""
     
@@ -96,6 +130,10 @@ check_multiple_domains() {
 # Generate domain suggestions
 suggest_domains() {
     local keyword="$1"
+    
+    # Check API setup first
+    check_api_setup || return 1
+    
     local suggestions=(
         "$keyword.com"
         "$keyword.io"
@@ -121,6 +159,9 @@ suggest_domains() {
 
 # Show pricing for popular TLDs
 show_pricing() {
+    # Check API setup first
+    check_api_setup || return 1
+    
     echo -e "${BLUE}💰 Porkbun Domain Pricing${NC}"
     echo ""
     
