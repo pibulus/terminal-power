@@ -16,7 +16,7 @@
 ╚═╝      ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝                          
 ```
 
-**Transform your terminal into a voice-controlled AI workspace with 16 MCPs, GitHub discovery, and creative APIs.**
+**Transform your terminal into a voice-controlled AI workspace with 12 MCPs, GitHub discovery, and creative APIs.**
 
 ---
 
@@ -71,7 +71,7 @@ palette stripe.com         # Extract color schemes from any site
 ```
 
 ### **🤖 Full AI Arsenal (After Setup)**
-- **10+ AI-powered MCPs** - databases, email, calendar, file operations
+- **12 AI-powered MCPs** - databases, email, calendar, file operations
 - **Voice-controlled workflows** - speak commands, get responses
 - **Creative AI tools** - image generation, music production
 - **Smart automation** - email management, calendar scheduling
@@ -110,7 +110,7 @@ voice "show me something cool"
 
 ## 🛠️ **What's Included**
 
-### **🎯 16 AI-Powered MCPs**
+### **🎯 12 AI-Powered MCPs**
 - **🎨 Creative**: DALL-E, Stable Diffusion, Ableton Live, AI models
 - **🗄️ Data**: Supabase, Gmail, Calendar, YouTube management  
 - **🔧 System**: macOS automation, file operations, terminal control
@@ -287,7 +287,7 @@ mcp share
 
 ### **v1.0 - The Foundation** ✅
 - Voice-controlled terminal
-- 16 MCP integrations
+- 12 MCP integrations
 - Interactive control center
 - Cross-platform installation
 

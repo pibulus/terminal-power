@@ -585,7 +585,7 @@ else
 fi
 
 echo -n "🖼️  Placeholder Images: "
-if curl -s --max-time 5 -I "https://picsum.photos/200/200" | grep -q "200" 2>/dev/null; then
+if curl -s --max-time 5 -I "https://dummyimage.com/200x200" | grep -q "200" 2>/dev/null; then
     echo -e "${GREEN}✅ Working!${NC}"
 else
     echo -e "${YELLOW}⚠️ Check internet connection${NC}"
