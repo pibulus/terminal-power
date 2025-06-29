@@ -448,6 +448,40 @@ verify_installation
 
 # Final setup instructions with enhanced guidance
 echo ""
+print_step "🤖 Setting up MCPs and API Packs..."
+echo ""
+
+# Auto-install Creative Pack if user wants it
+if confirm "Install Creative Pack (weather, colors, QR codes, etc.)?"; then
+    echo ""
+    print_step "Installing Creative Pack..."
+    ~/Terminal_Power/scripts/pack-manager.sh install creative
+fi
+
+echo ""
+
+# Auto-configure MCPs if Claude Code is available
+if command -v claude &> /dev/null; then
+    if confirm "Auto-configure MCPs for Claude Code?"; then
+        echo ""
+        print_step "Configuring MCPs..."
+        
+        # Source the MCP config and run the commands
+        while IFS= read -r line; do
+            if [[ "$line" =~ ^claude\ mcp\ add ]]; then
+                echo "  Running: $line"
+                eval "$line" 2>/dev/null || echo "    ⚠️ Skipped (package not available)"
+            fi
+        done < ~/Terminal_Power/configs/claude_mcp_config
+        
+        echo ""
+        print_success "MCPs configured! Restart Claude Code to activate them."
+    fi
+else
+    print_warning "Claude Code not found. Install it first, then run: mcp"
+fi
+
+echo ""
 echo "🎉 Terminal Power Installation Complete!"
 echo "========================================"
 echo ""
@@ -471,54 +505,36 @@ else
 fi
 
 echo ""
-echo "🚀 Quick Start Guide:"
-echo "===================="
+echo "🚀 What To Do Next:"
+echo "=================="
 echo ""
 echo "1. 🔄 Restart your terminal:"
 echo "   source ~/.zshrc"
 echo ""
-echo "2. 🎮 Launch the control center:"
-echo "   mcp"
+echo "2. 🤖 If you installed MCPs, restart Claude Code completely"
 echo ""
-echo "3. 🔑 Set up your API keys:"
-echo "   mcp api"
-echo ""
-echo "4. 🧪 Test the system:"
-echo "   mcp test"
-echo ""
-echo "5. 🎙️ Try voice commands:"
-echo "   voice \"show me something cool\""
+echo "3. 🎯 Start using Terminal Power:"
+echo "   mcp                    # Interactive control center"
+echo "   voice                  # Voice commands"
+echo "   weather tokyo          # Check weather"
+echo "   mcp install creative   # Install API packs"
 echo ""
 
-# API setup reminder
-echo "🔑 Essential API Keys Needed:"
-echo "============================="
-echo "• OpenAI API - https://platform.openai.com/account/api-keys"
-echo "• GitHub Token - https://github.com/settings/tokens"
-echo "• Google API - https://console.cloud.google.com/apis/credentials"
-echo "• Supabase Token - https://supabase.com/dashboard/account/tokens"
-echo ""
-
-# Show helpful resources
-echo "📚 Documentation & Help:"
-echo "========================"
-echo "• Complete Guide: ~/Terminal_Power/docs/"
+# Quick help
+echo "📚 Need Help?"
+echo "============="
 echo "• Interactive Help: mcp"
-echo "• System Diagnostics: mcp test"
-echo "• Troubleshooting: mcp troubleshoot"
+echo "• GitHub: https://github.com/pibulus/terminal-power"
+echo "• Issues: https://github.com/pibulus/terminal-power/issues"
 echo ""
 
 # Final encouragement
-echo "🤖 Your terminal is now a cyberpunk AI command center!"
+echo "🚀 TERMINAL POWER ACTIVATED!"
 echo ""
-echo "🌟 What's possible now:"
-echo "   • Voice-controlled AI commands"
-echo "   • Instant GitHub code discovery"
-echo "   • Natural language database operations"
-echo "   • AI-powered creative workflows"
-echo "   • Automated development tasks"
+echo "Your terminal is now a cyberpunk AI command center."
+echo "Voice commands, AI workflows, and creative tools at your fingertips!"
 echo ""
-echo "💡 Start with: mcp"
+echo "💡 Type 'mcp' to begin your journey..."
 echo ""
 
 # Create a quick test script
