@@ -13,10 +13,10 @@ alias domainprice='~/porkbun-search.sh pricing'
 # Creative pack shortcuts (work immediately - no API keys needed)
 alias weather='~/weather-tools.sh'
 alias qr='function _qr() { curl -s "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$1" -o qr.png && echo "QR code saved as qr.png"; }; _qr'
-alias colorname='function _colorname() { curl -s "https://www.thecolorapi.com/id?hex=$1" | jq -r ".name.value"; }; _colorname'
+alias colorname='~/color-tools.sh name'
 alias colorscheme='~/color-tools.sh scheme'
 alias palette='~/color-tools.sh palette'
-alias quote='curl -s "https://api.quotable.io/random" | jq -r ".content + \" - \" + .author"'
+alias quote='curl -s "https://dummyjson.com/quotes/random" | jq -r ".quote + \" - \" + .author"'
 alias fake='function _fake() { curl -s "https://fakerapi.it/api/v1/${1:-persons}?_quantity=${2:-3}" | jq .; }; _fake'
 
 # MCP API Keys for Claude Code

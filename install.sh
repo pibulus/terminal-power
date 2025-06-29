@@ -320,8 +320,10 @@ mkdir -p ~/bin
 cp scripts/voice-to-claude.sh ~/
 cp scripts/github-search.sh ~/
 cp scripts/porkbun-search.sh ~/
+cp scripts/weather-tools.sh ~/
+cp scripts/color-tools.sh ~/
 cp scripts/mcphelp ~/bin/
-chmod +x ~/voice-to-claude.sh ~/github-search.sh ~/porkbun-search.sh ~/bin/mcphelp
+chmod +x ~/voice-to-claude.sh ~/github-search.sh ~/porkbun-search.sh ~/weather-tools.sh ~/color-tools.sh ~/bin/mcphelp
 
 print_success "Scripts installed and made executable"
 
@@ -567,6 +569,13 @@ else
     echo -e "${YELLOW}⚠️ Check internet connection${NC}"
 fi
 
+echo -n "💬 Quote API: "
+if curl -s --max-time 5 "https://dummyjson.com/quotes/random" | grep -q "quote" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"
+fi
+
 echo ""
 echo "🚀 TERMINAL POWER ACTIVATED!"
 echo ""
@@ -576,6 +585,7 @@ echo -e "${BLUE}🎯 Try these commands immediately:${NC}"
 echo "   weather tokyo          # Get weather anywhere"  
 echo "   qr 'Hello World'       # Generate QR codes"
 echo "   colorname FF69B4       # Identify any color"
+echo "   quote                  # Get inspiring quotes"
 echo ""
 echo -e "${YELLOW}🎮 For the full experience:${NC}"
 echo "   mcp                    # Open control center"
