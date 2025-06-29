@@ -17,11 +17,10 @@ Terminal Power is an open-source package that turns any terminal into a cyberpun
 
 When working on Terminal Power, you have access to these MCPs:
 
-### **AI & Creative (4 MCPs)**
-- `outsource` - Multi-AI access (DALL-E, GPT-4, Claude)
-- `huggingface` - 300k+ free AI models
-- `ableton-live` - Music production control
-- `sequential-thinking` - Enhanced reasoning
+### **AI & Creative (3 MCPs)**
+- `huggingface` - Access to Hugging Face Hub APIs and models
+- `ableton-live` - Music production control via Ableton Live
+- `sequential-thinking` - Enhanced reasoning and tool recommendations
 
 ### **Data & Web (5 MCPs)**
 - `supabase` - Database operations
@@ -30,16 +29,13 @@ When working on Terminal Power, you have access to these MCPs:
 - `youtube-watchlater` - YouTube playlist management
 - `webscraper` - Web data extraction
 
-### **System & Files (4 MCPs)**
-- `macos-automator` - Mac system control
+### **System & Files (2 MCPs)**
+- `macos-automator` - Mac system control via AppleScript/JXA
 - `filesystem` - Advanced file operations
-- `wcgw` - Autonomous shell execution
-- `terminal-control` - Enhanced terminal automation
 
-### **Integration & Tools (3 MCPs)**
-- `openapi` - Universal API connector
-- `markitdown-simple` - Universal file converter
-- `free-will` - AI autonomy experiment
+### **Integration & Tools (2 MCPs)**
+- `openapi` - Universal API connector for REST APIs
+- `markitdown-simple` - Universal file converter via Microsoft MarkItDown
 
 ## 📦 API Pack System
 

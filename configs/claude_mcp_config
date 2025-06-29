@@ -2,28 +2,28 @@
 # Run these commands to set up your Model Context Protocol servers
 
 # BASIC MCPs (Working and tested)
-claude mcp add markitdown-simple markitdown
+claude mcp add markitdown-simple npx markitdown-mcp-npx
 claude mcp add filesystem npx @modelcontextprotocol/server-filesystem
-claude mcp add sequential-thinking mcp-sequentialthinking-tools
+claude mcp add sequential-thinking npx mcp-sequentialthinking-tools
 claude mcp add macos-automator npx @steipete/macos-automator-mcp
-claude mcp add wcgw wcgw_mcp
-claude mcp add free-will free-will-mcp
+# NOTE: wcgw is Python-based, use: uv tool run --python 3.12 wcgw@latest
+# NOTE: free-will-mcp does not exist - removed
 
 # CREATIVE & AI MCPs (Require API keys)
-claude mcp add outsource npx @anthropic-ai/mcp-outsource
-claude mcp add huggingface npx huggingface-mcp-server
-claude mcp add ableton-live npx @ableton/mcp-live
+# NOTE: @anthropic-ai/mcp-outsource does not exist - removed
+claude mcp add huggingface npx @huggingface/mcp-client
+claude mcp add ableton-live npx @xiaolaa2/ableton-copilot-mcp
 
 # DATA & WEB MCPs (Require configuration)
-claude mcp add supabase npx @supabase/mcp-server
-claude mcp add gmail npx gmail-mcp-server
-claude mcp add calendar npx google-calendar-mcp
-claude mcp add youtube-watchlater npx youtube-mcp-server
-claude mcp add webscraper npx web-scraper-mcp
+claude mcp add supabase npx @supabase/mcp-server-supabase
+claude mcp add gmail npx @gongrzhe/server-gmail-mcp-cloud
+claude mcp add calendar npx @cocal/google-calendar-mcp
+claude mcp add youtube-watchlater npx @kazuph/mcp-youtube
+claude mcp add webscraper npx scraperis-mcp
 
 # INTEGRATION MCPs
-claude mcp add openapi npx openapi-mcp-server
-claude mcp add terminal-control npx terminal-control-mcp
+claude mcp add openapi npx @ivotoby/openapi-mcp-server
+# NOTE: terminal-control-mcp does not exist - removed
 
 # VERIFY INSTALLATION
 # Run this command to see all configured MCPs:
