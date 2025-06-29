@@ -6,7 +6,7 @@
 
 Terminal Power is an open-source package that turns any terminal into a cyberpunk AI command center featuring:
 - 🎙️ **Bidirectional Voice**: Commands IN via Whisper API, responses OUT via TTS
-- 🤖 **16 Model Context Protocol (MCP)** servers for AI capabilities
+- 🤖 **12 Model Context Protocol (MCP)** servers for AI capabilities
 - 📦 **Modular API Packs** - Creative, Deploy, and Fun extensions
 - 🎨 **Interactive Control Center** with beautiful gum-based UI
 - 🔍 **GitHub Code Discovery** engine
@@ -70,7 +70,7 @@ Users interact through voice commands that should be routed intelligently:
 - "Create a new table for users"
 - "Query recent signups"
 
-### **Creative Tasks** → Use `outsource` or `huggingface` MCPs
+### **Creative Tasks** → Use `huggingface` MCP
 - "Generate a cyberpunk wallpaper"
 - "Create album artwork"
 - "Design a logo for my startup"

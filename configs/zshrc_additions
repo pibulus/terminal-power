@@ -20,6 +20,10 @@ alias quote='curl -s "https://dummyjson.com/quotes/random" | jq -r ".quote + \" 
 alias fake='function _fake() { curl -s "https://fakerapi.it/api/v1/${1:-persons}?_quantity=${2:-3}" | jq .; }; _fake'
 alias shorten='function _shorten() { curl -s "https://is.gd/create.php?format=simple&url=$1"; }; _shorten'
 alias placeholder='function _placeholder() { echo "https://dummyimage.com/${1:-800}x${2:-600}"; }; _placeholder'
+alias uuid='curl -s "https://httpbin.org/uuid" | jq -r ".uuid"'
+alias myip='curl -s "https://httpbin.org/ip" | jq -r ".origin"'
+alias catfact='curl -s "https://catfact.ninja/fact" | jq -r ".fact"'
+alias joke='curl -s "https://official-joke-api.appspot.com/random_joke" | jq -r ".setup + \" \" + .punchline"'
 
 # Voice & TTS (works with system TTS immediately)
 alias speak='~/voice-response.sh'

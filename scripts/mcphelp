@@ -1032,10 +1032,9 @@ show_mcp_arsenal() {
         --border double \
         --border-foreground 99 \
         --padding "1 2" \
-        "📚 YOUR 16 MCP ARSENAL
+        "📚 YOUR 12 MCP ARSENAL
 
-🎨 Creative & AI (4 MCPs):
-• outsource - Multi-AI access (DALL-E, GPT-4, Claude)
+🎨 Creative & AI (3 MCPs):
 • huggingface - 300k+ free AI models
 • ableton-live - Music production control
 • sequential-thinking - Enhanced reasoning

@@ -598,6 +598,34 @@ else
     echo -e "${YELLOW}⚠️ Install espeak for Linux TTS${NC}"
 fi
 
+echo -n "🆔 UUID Generator: "
+if curl -s --max-time 5 "https://httpbin.org/uuid" | grep -q "uuid" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"
+fi
+
+echo -n "🌐 IP Info: "
+if curl -s --max-time 5 "https://httpbin.org/ip" | grep -q "origin" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"
+fi
+
+echo -n "🐱 Cat Facts: "
+if curl -s --max-time 5 "https://catfact.ninja/fact" | grep -q "fact" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"
+fi
+
+echo -n "😂 Jokes: "
+if curl -s --max-time 5 "https://official-joke-api.appspot.com/random_joke" | grep -q "setup" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"
+fi
+
 echo ""
 echo "🚀 TERMINAL POWER ACTIVATED!"
 echo ""
@@ -611,6 +639,10 @@ echo "   quote                  # Get inspiring quotes"
 echo "   shorten https://github.com/pibulus/terminal-power  # Shorten URLs"
 echo "   placeholder 800 600    # Get placeholder images"
 echo "   speak 'Terminal Power activated!'  # Text-to-speech"
+echo "   uuid                   # Generate unique IDs"
+echo "   myip                   # Get your public IP"
+echo "   catfact                # Random cat facts"
+echo "   joke                   # Get a random joke"
 echo ""
 echo -e "${YELLOW}🎮 For the full experience:${NC}"
 echo "   mcp                    # Open control center"

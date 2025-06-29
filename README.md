@@ -43,6 +43,10 @@ fake people 3              # Generate test data
 shorten https://long-url.com # Shorten URLs instantly
 placeholder 800 600        # Get placeholder images
 speak "Hello World"        # Text-to-speech (system TTS)
+uuid                       # Generate unique IDs
+myip                       # Get your public IP
+catfact                    # Random cat facts
+joke                       # Get a random joke
 ```
 
 ### **🔑 Unlock with Free API Keys**
