@@ -20,8 +20,11 @@ show_setup_guide() {
     echo -e "${YELLOW}💡 You need free Porkbun API keys to search domains${NC}"
     echo ""
     echo "1. Sign up at: https://porkbun.com"
-    echo "2. Go to API section in your account"
-    echo "3. Generate API keys (free)"
+    echo "2. Go to API Access in your account dashboard"
+    command -v open >/dev/null && { 
+        echo "   Opening Porkbun dashboard..." && open "https://porkbun.com/account/api"
+    } || echo "   Visit: https://porkbun.com/account/api"
+    echo "3. Create API Key (free - give it any name)"
     echo "4. Add to your ~/.zshrc:"
     echo ""
     echo -e "${GREEN}export PORKBUN_API_KEY=\"your_api_key_here\"${NC}"

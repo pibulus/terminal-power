@@ -117,9 +117,12 @@ setup_api_key() {
         "unsplash")
             echo -e "${YELLOW}📸 Setting up Unsplash...${NC}"
             echo "1. Opening Unsplash Developer page..."
-            command -v open >/dev/null && open "https://unsplash.com/developers" || echo "Visit: https://unsplash.com/developers"
-            echo "2. Create a new app (any name is fine)"
-            echo "3. Copy your 'Access Key'"
+            command -v open >/dev/null && { 
+                open "https://unsplash.com/developers" && sleep 2
+            } || echo "Visit: https://unsplash.com/developers"
+            echo "2. Click 'New Application' button"
+            echo "3. Accept terms and create app (any name works)"
+            echo "4. Copy your 'Access Key' from the app dashboard"
             echo ""
             read -p "Paste your Unsplash Access Key: " key
             if [[ -n "$key" ]]; then
@@ -131,9 +134,13 @@ setup_api_key() {
         "google")
             echo -e "${YELLOW}🔤 Setting up Google Fonts...${NC}"
             echo "1. Opening Google Cloud Console..."
-            command -v open >/dev/null && open "https://console.cloud.google.com/apis/credentials" || echo "Visit: https://console.cloud.google.com/apis/credentials"
-            echo "2. Create credentials → API Key"
-            echo "3. Restrict to Google Fonts API"
+            command -v open >/dev/null && { 
+                open "https://console.cloud.google.com/apis/credentials" && sleep 2
+            } || echo "Visit: https://console.cloud.google.com/apis/credentials"
+            echo "2. Click '+ CREATE CREDENTIALS' → API Key"
+            echo "3. Copy the API key, then click 'RESTRICT KEY'"
+            echo "4. Under 'API restrictions', select 'Google Fonts Developer API'"
+            echo "5. Click 'Save'"
             echo ""
             read -p "Paste your Google API Key: " key
             if [[ -n "$key" ]]; then
@@ -145,9 +152,12 @@ setup_api_key() {
         "microlink")
             echo -e "${YELLOW}🎨 Setting up Microlink...${NC}"
             echo "1. Opening Microlink signup..."
-            command -v open >/dev/null && open "https://microlink.io/signup" || echo "Visit: https://microlink.io/signup"
-            echo "2. Free plan gives 1,000 requests/month"
-            echo "3. Copy your API key from dashboard"
+            command -v open >/dev/null && { 
+                open "https://microlink.io/signup" && sleep 2
+            } || echo "Visit: https://microlink.io/signup"
+            echo "2. Sign up for free (1,000 requests/month)"
+            echo "3. After signup, go to your dashboard"
+            echo "4. Copy your API key from the API section"
             echo ""
             read -p "Paste your Microlink API Key: " key
             if [[ -n "$key" ]]; then
@@ -166,7 +176,9 @@ setup_api_key() {
                 echo "Cost: ~$0.015 per 1,000 characters (very affordable!)"
             else
                 echo "1. Opening OpenAI API Keys page..."
-                command -v open >/dev/null && open "https://platform.openai.com/account/api-keys" || echo "Visit: https://platform.openai.com/account/api-keys"
+                command -v open >/dev/null && { 
+                    open "https://platform.openai.com/api-keys" && sleep 2
+                } || echo "Visit: https://platform.openai.com/api-keys"
                 echo "2. Create new secret key"
                 echo "3. Cost: $0.015 per 1K characters (~85% cheaper than ElevenLabs)"
                 echo ""
@@ -181,10 +193,13 @@ setup_api_key() {
         "elevenlabs")
             echo -e "${YELLOW}✨ Setting up ElevenLabs Premium Voices...${NC}"
             echo "1. Opening ElevenLabs signup..."
-            command -v open >/dev/null && open "https://elevenlabs.io/signup" || echo "Visit: https://elevenlabs.io/signup"
-            echo "2. Free plan: 10,000 credits/month (≈10 minutes)"
-            echo "3. Paid: $5/month for 30,000 credits (≈30 minutes)"
-            echo "4. Go to Profile → API Keys to get your key"
+            command -v open >/dev/null && { 
+                open "https://elevenlabs.io/signup" && sleep 2
+            } || echo "Visit: https://elevenlabs.io/signup"
+            echo "2. Sign up for free (10,000 credits/month ≈ 10 minutes)"
+            echo "3. After signup, click your profile icon (top right)"
+            echo "4. Select 'Profile + API Key' from dropdown"
+            echo "5. Copy your API key from the settings page"
             echo ""
             echo -e "${BLUE}💡 Note: ElevenLabs has premium voice quality but OpenAI TTS is 85% cheaper${NC}"
             echo ""
