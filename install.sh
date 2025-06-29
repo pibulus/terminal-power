@@ -322,8 +322,9 @@ cp scripts/github-search.sh ~/
 cp scripts/porkbun-search.sh ~/
 cp scripts/weather-tools.sh ~/
 cp scripts/color-tools.sh ~/
+cp scripts/voice-response.sh ~/
 cp scripts/mcphelp ~/bin/
-chmod +x ~/voice-to-claude.sh ~/github-search.sh ~/porkbun-search.sh ~/weather-tools.sh ~/color-tools.sh ~/bin/mcphelp
+chmod +x ~/voice-to-claude.sh ~/github-search.sh ~/porkbun-search.sh ~/weather-tools.sh ~/color-tools.sh ~/voice-response.sh ~/bin/mcphelp
 
 print_success "Scripts installed and made executable"
 
@@ -576,6 +577,27 @@ else
     echo -e "${YELLOW}⚠️ Check internet connection${NC}"
 fi
 
+echo -n "🔗 URL Shortener: "
+if curl -s --max-time 5 "https://is.gd/create.php?format=simple&url=https://example.com" | grep -q "is.gd" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"
+fi
+
+echo -n "🖼️  Placeholder Images: "
+if curl -s --max-time 5 -I "https://picsum.photos/200/200" | grep -q "200" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"
+fi
+
+echo -n "🗣️ System TTS: "
+if command -v say >/dev/null 2>&1 || command -v espeak >/dev/null 2>&1; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Install espeak for Linux TTS${NC}"
+fi
+
 echo ""
 echo "🚀 TERMINAL POWER ACTIVATED!"
 echo ""
@@ -586,6 +608,9 @@ echo "   weather tokyo          # Get weather anywhere"
 echo "   qr 'Hello World'       # Generate QR codes"
 echo "   colorname FF69B4       # Identify any color"
 echo "   quote                  # Get inspiring quotes"
+echo "   shorten https://github.com/pibulus/terminal-power  # Shorten URLs"
+echo "   placeholder 800 600    # Get placeholder images"
+echo "   speak 'Terminal Power activated!'  # Text-to-speech"
 echo ""
 echo -e "${YELLOW}🎮 For the full experience:${NC}"
 echo "   mcp                    # Open control center"

@@ -18,6 +18,15 @@ alias colorscheme='~/color-tools.sh scheme'
 alias palette='~/color-tools.sh palette'
 alias quote='curl -s "https://dummyjson.com/quotes/random" | jq -r ".quote + \" - \" + .author"'
 alias fake='function _fake() { curl -s "https://fakerapi.it/api/v1/${1:-persons}?_quantity=${2:-3}" | jq .; }; _fake'
+alias shorten='function _shorten() { curl -s "https://is.gd/create.php?format=simple&url=$1"; }; _shorten'
+alias placeholder='function _placeholder() { echo "https://picsum.photos/${1:-800}/${2:-600}"; }; _placeholder'
+
+# Voice & TTS (works with system TTS immediately)
+alias speak='~/voice-response.sh'
+alias voice-config='~/voice-response.sh config'
+
+# Photo APIs (needs free Unsplash key for full power)
+alias photo='function _photo() { if [[ -n "$UNSPLASH_ACCESS_KEY" ]]; then curl -s "https://api.unsplash.com/photos/random?query=$1" -H "Authorization: Client-ID $UNSPLASH_ACCESS_KEY" | jq -r ".urls.regular"; else echo "Get free Unsplash key: https://unsplash.com/developers - 50 photos/hour free!"; fi; }; _photo'
 
 # MCP API Keys for Claude Code
 export SUPABASE_ACCESS_TOKEN="your_supabase_token_here"

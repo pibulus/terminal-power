@@ -40,13 +40,24 @@ qr "Hello World"           # Generate QR codes
 colorname FF69B4           # Identify any color
 quote                      # Get inspiring quotes
 fake people 3              # Generate test data
+shorten https://long-url.com # Shorten URLs instantly
+placeholder 800 600        # Get placeholder images
+speak "Hello World"        # Text-to-speech (system TTS)
 ```
 
 ### **🔑 Unlock with Free API Keys**
 ```bash
+# Professional photos (needs free Unsplash key - 50/hour):
+photo "mountains sunset"   # Get stunning photos from Unsplash
+photo "office workspace"   # Perfect for presentations & designs
+
 # Voice commands (needs OpenAI API key):
 voice "show me my database tables"
 voice "find GitHub examples of Deno auth"
+
+# Premium TTS voices (optional upgrades):
+speak "Hello" --voice openai    # OpenAI TTS ($0.015/1K chars)
+speak "Hello" --voice elevenlabs # ElevenLabs premium (10 min free)
 
 # GitHub discovery (needs GitHub token):
 ghsearch "deno fresh auth" repositories
@@ -54,6 +65,9 @@ findcode "supabase middleware" code
 
 # Domain search (needs Porkbun keys):
 domains example.com        # Check domain availability
+
+# Website palette extraction (needs free Microlink key):
+palette stripe.com         # Extract color schemes from any site
 ```
 
 ### **🤖 Full AI Arsenal (After Setup)**
