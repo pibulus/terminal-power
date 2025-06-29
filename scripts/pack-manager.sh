@@ -35,6 +35,29 @@ install_creative_pack() {
     echo -e "${BLUE}🎨 Installing Creative Pack...${NC}"
     echo ""
     
+    # Show what they'll get first!
+    echo -e "${PURPLE}🌟 Let's see what you'll unlock:${NC}"
+    echo ""
+    echo "  Try these RIGHT NOW (no setup needed):"
+    echo -e "  ${GREEN}weather tokyo${NC}           # Weather anywhere in the world"
+    echo -e "  ${GREEN}qr 'Hello World'${NC}        # Instant QR codes"
+    echo -e "  ${GREEN}colorname FF69B4${NC}        # Identify any color"
+    echo -e "  ${GREEN}quote${NC}                   # Get inspiring quotes"
+    echo ""
+    echo "  With free API keys, you'll also get:"
+    echo "  📸 Professional photos from Unsplash"
+    echo "  🔤 Google Fonts for your projects" 
+    echo "  🎨 Website color palette extraction"
+    echo "  ✨ Premium voice responses"
+    echo ""
+    
+    if ! confirm "Install Creative Pack and set up APIs?"; then
+        echo "No worries! You can install it later with: mcp install creative"
+        return
+    fi
+    
+    echo ""
+    
     # Create pack directory
     mkdir -p "$PACKS_DIR/creative"
     

@@ -197,15 +197,24 @@ Ready to transform your terminal?"
         
         echo ""
         if [[ "$SETUP_STATUS" == "complete" ]]; then
-            if confirm "Show me what's possible?"; then
-                show_quick_tour
+            echo -e "${GREEN}💡 Next: Choose 'Quick Start Guide' to see what you can do!${NC}"
+            echo ""
+            if confirm "Open the Terminal Power control center?"; then
+                # Continue to main menu
+                true
+            else
+                return
             fi
         else
-            if confirm "Let's complete the setup?"; then
+            echo -e "${BLUE}💡 I'll open an interactive menu with easy setup options.${NC}"
+            echo ""
+            if confirm "Let's set up your missing components?"; then
                 show_guided_setup
+                return
             else
-                if confirm "Take the tour first?"; then
+                if confirm "Skip setup and explore what works now?"; then
                     show_quick_tour
+                    return
                 fi
             fi
         fi

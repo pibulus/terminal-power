@@ -461,19 +461,26 @@ fi
 echo ""
 
 # Auto-configure MCPs if Claude Code is available
+installed_mcps="false"
 if command -v claude &> /dev/null; then
     if confirm "Auto-configure MCPs for Claude Code?"; then
         echo ""
         print_step "Configuring MCPs..."
         
         # Source the MCP config and run the commands
+        local mcp_count=0
+        local total_mcps=$(grep -c "^claude mcp add" ~/Terminal_Power/configs/claude_mcp_config)
+        
         while IFS= read -r line; do
             if [[ "$line" =~ ^claude\ mcp\ add ]]; then
-                echo "  Running: $line"
+                ((mcp_count++))
+                local mcp_name=$(echo "$line" | awk '{print $4}')
+                echo "  [$mcp_count/$total_mcps] Installing $mcp_name..."
                 eval "$line" 2>/dev/null || echo "    ⚠️ Skipped (package not available)"
             fi
         done < ~/Terminal_Power/configs/claude_mcp_config
         
+        installed_mcps="true"
         echo ""
         print_success "MCPs configured! Restart Claude Code to activate them."
     fi
@@ -505,20 +512,25 @@ else
 fi
 
 echo ""
-echo "🚀 What To Do Next:"
-echo "=================="
+echo "🚀 READY TO USE!"
+echo "==============="
 echo ""
-echo "1. 🔄 Restart your terminal:"
-echo "   source ~/.zshrc"
-echo ""
-echo "2. 🤖 If you installed MCPs, restart Claude Code completely"
-echo ""
-echo "3. 🎯 Start using Terminal Power:"
-echo "   mcp                    # Interactive control center"
-echo "   voice                  # Voice commands"
-echo "   weather tokyo          # Check weather"
-echo "   mcp install creative   # Install API packs"
-echo ""
+if [[ -n "$installed_mcps" ]] && [[ "$installed_mcps" == "true" ]]; then
+    echo -e "${BLUE}🔄 To activate everything:${NC}"
+    echo ""
+    echo "1. 📱 Close and reopen Claude Code completely"
+    echo "2. 💻 In a NEW terminal tab, run:"
+    echo -e "   ${GREEN}mcp${NC}                    # Open control center"
+    echo ""
+    echo -e "${YELLOW}💡 Your current terminal has everything working except MCPs${NC}"
+else
+    echo -e "${BLUE}🎯 Everything is ready! Try these now:${NC}"
+    echo ""
+    echo -e "   ${GREEN}mcp${NC}                    # Open control center"  
+    echo -e "   ${GREEN}weather tokyo${NC}          # Check weather"
+    echo -e "   ${GREEN}qr 'Hello World'${NC}       # Generate QR codes"
+    echo ""
+fi
 
 # Quick help
 echo "📚 Need Help?"
@@ -528,13 +540,45 @@ echo "• GitHub: https://github.com/pibulus/terminal-power"
 echo "• Issues: https://github.com/pibulus/terminal-power/issues"
 echo ""
 
-# Final encouragement
+# Immediate success validation with working demos
+echo ""
+print_step "🧪 Testing what works right now..."
+echo ""
+
+# Test features that work immediately (no API keys needed)
+echo -n "🌤️  Weather API: "
+if curl -s --max-time 5 "https://api.open-meteo.com/v1/forecast?latitude=40.7&longitude=-74.0&current=temperature_2m" | grep -q "temperature_2m" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"
+fi
+
+echo -n "🎨 Color API: "
+if curl -s --max-time 5 "https://www.thecolorapi.com/id?hex=FF69B4" | grep -q "name" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"  
+fi
+
+echo -n "📱 QR Generator: "
+if curl -s --max-time 5 -I "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=test" | grep -q "200" 2>/dev/null; then
+    echo -e "${GREEN}✅ Working!${NC}"
+else
+    echo -e "${YELLOW}⚠️ Check internet connection${NC}"
+fi
+
+echo ""
 echo "🚀 TERMINAL POWER ACTIVATED!"
 echo ""
-echo "Your terminal is now a cyberpunk AI command center."
-echo "Voice commands, AI workflows, and creative tools at your fingertips!"
+print_success "Installation complete! Here's what you can try RIGHT NOW:"
 echo ""
-echo "💡 Type 'mcp' to begin your journey..."
+echo -e "${BLUE}🎯 Try these commands immediately:${NC}"
+echo "   weather tokyo          # Get weather anywhere"  
+echo "   qr 'Hello World'       # Generate QR codes"
+echo "   colorname FF69B4       # Identify any color"
+echo ""
+echo -e "${YELLOW}🎮 For the full experience:${NC}"
+echo "   mcp                    # Open control center"
 echo ""
 
 # Create a quick test script

@@ -10,6 +10,15 @@ alias findcode='~/github-search.sh'
 alias domains='~/porkbun-search.sh'
 alias domainprice='~/porkbun-search.sh pricing'
 
+# Creative pack shortcuts (work immediately - no API keys needed)
+alias weather='~/weather-tools.sh'
+alias qr='function _qr() { curl -s "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$1" -o qr.png && echo "QR code saved as qr.png"; }; _qr'
+alias colorname='function _colorname() { curl -s "https://www.thecolorapi.com/id?hex=$1" | jq -r ".name.value"; }; _colorname'
+alias colorscheme='~/color-tools.sh scheme'
+alias palette='~/color-tools.sh palette'
+alias quote='curl -s "https://api.quotable.io/random" | jq -r ".content + \" - \" + .author"'
+alias fake='function _fake() { curl -s "https://fakerapi.it/api/v1/${1:-persons}?_quantity=${2:-3}" | jq .; }; _fake'
+
 # MCP API Keys for Claude Code
 export SUPABASE_ACCESS_TOKEN="your_supabase_token_here"
 export OPENAI_API_KEY="your_openai_key_here"
@@ -31,8 +40,8 @@ export ELEVENLABS_API_KEY=""  # Add when you get it
 export REPLICATE_API_TOKEN=""  # Add when you get it
 
 # Development APIs  
-export PORKBUN_API_KEY="pk1_4ee621999e08b950a35b1903331db2f38e600f1c3f13eb757f764439debad297"  # Domain search
-export PORKBUN_SECRET_KEY="sk1_7c88e60e642406860ef8ab41aff65e1ed08b0c6e11825728f9340181c7bcdcb3"  # Domain search
+export PORKBUN_API_KEY=""  # Add your Porkbun API key for domain search
+export PORKBUN_SECRET_KEY=""  # Add your Porkbun secret key for domain search
 export RAILWAY_TOKEN=""  # Add when you get it
 export STEAM_API_KEY=""  # Add when you get it
 
