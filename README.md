@@ -30,39 +30,37 @@ curl -sSL https://raw.githubusercontent.com/pibulus/terminal-power/main/install.
 
 ---
 
-## 🎯 **What You Get Instantly**
+## 🎯 **What You Get**
 
-### **🎙️ Voice Control Everything**
+### **✅ Works Immediately (No Setup)**
 ```bash
-voice "show me my database tables"
-voice "find GitHub examples of Deno auth"  
-voice "generate a cyberpunk wallpaper"
-voice "create a new SaaS project"
+# Try these RIGHT after installation:
+weather tokyo              # Weather anywhere in the world
+qr "Hello World"           # Generate QR codes  
+colorname FF69B4           # Identify any color
+quote                      # Get inspiring quotes
+fake people 3              # Generate test data
 ```
 
-### **🤖 Your Personal AI Assistant**
-- **16 AI-powered MCPs** - from databases to music production
-- **Natural language commands** - speak what you want
-- **Intelligent routing** - AI picks the right tools
-- **Zero configuration** - works out of the box
-
-### **🔍 Instant Code & Domain Discovery**
+### **🔑 Unlock with Free API Keys**
 ```bash
+# Voice commands (needs OpenAI API key):
+voice "show me my database tables"
+voice "find GitHub examples of Deno auth"
+
+# GitHub discovery (needs GitHub token):
 ghsearch "deno fresh auth" repositories
 findcode "supabase middleware" code
-domains example.com                  # Check domain availability
-domainprice                         # See domain pricing
-# Find any code pattern or domain in seconds
+
+# Domain search (needs Porkbun keys):
+domains example.com        # Check domain availability
 ```
 
-### **🎨 Creative Superpowers**
-```bash
-# Voice commands that just work:
-"Generate album artwork using AI"
-"Create a lofi track in Ableton Live"  
-"Design a logo for my startup"
-"Make a minimalist desktop wallpaper"
-```
+### **🤖 Full AI Arsenal (After Setup)**
+- **10+ AI-powered MCPs** - databases, email, calendar, file operations
+- **Voice-controlled workflows** - speak commands, get responses
+- **Creative AI tools** - image generation, music production
+- **Smart automation** - email management, calendar scheduling
 
 ---
 
